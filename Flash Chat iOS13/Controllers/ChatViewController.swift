@@ -22,8 +22,6 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.delegate = self
         tableView.dataSource  = self
         
         title = K.appName
@@ -67,9 +65,4 @@ extension ChatViewController: UITableViewDataSource {
     
 }
 
-extension ChatViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
-    }
-    
-}
+
