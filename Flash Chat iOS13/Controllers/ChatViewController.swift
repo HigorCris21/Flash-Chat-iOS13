@@ -51,6 +51,9 @@ class ChatViewController: UIViewController {
                             //Chama a funcao de forma assíncrona na thread principal
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
+                                
+                                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                             }
                         }
                     }
@@ -67,6 +70,7 @@ class ChatViewController: UIViewController {
                 K.FStore.senderField: messageSender,
                 K.FStore.bodyField: messageBody,
                 K.FStore.dateField: Date().timeIntervalSince1970
+            
             ]) { (error) in
                 if let e = error {
                     print("There was an issue saving data to firestore, \(e)")
@@ -75,6 +79,8 @@ class ChatViewController: UIViewController {
                 }
             }
         }
+        
+        messageTextfield.text = ""
     }
     
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
@@ -116,7 +122,10 @@ extension ChatViewController: UITableViewDataSource {
         }
         
         else {
-            
+            cell.leftImageView.isHidden = false
+            cell.rightImageView.isHidden = true
+            cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.purple)
+            cell.label.textColor = UIColor(named: K.BrandColors.lightPurple)
         }
         
         return cell
